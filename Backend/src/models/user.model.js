@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
     } 
 })
 
+//User's data is stored in collection named "users"
 const userModel = mongoose.model("users",userSchema)
 
 module.exports = userModel

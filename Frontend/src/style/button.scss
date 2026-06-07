@@ -1,0 +1,21 @@
+button{
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+    &.primary-button{
+        background-color: #f31313;
+        color: white;
+    }
+    &:hover{
+        background-color: #f95050;
+        color: black;
+    }
+    &:active{
+        transform: scale(0.9);
+    }
+
+}
