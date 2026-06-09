@@ -1,58 +1,158 @@
-import {Link,useNavigate } from "react-router";
+import "../auth.form.scss";
+import { Link, useNavigate } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
 
 const Register = () => {
 
-  const {handleRegister,loading} = useAuth();
+  const { handleRegister, loading } = useAuth();
   const navigate = useNavigate();
-  
-  const[email,setEmail] = useState("")
-  const[password,setPassword] = useState("")
-  const[username,setUsername] = useState("");
 
-  const handleSubmit = (e) =>{
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    handleRegister({email,username,password})
-    navigate("/")
-  }
 
-  if(loading){
-    return (<main><h1>Loading.... </h1></main>)
+    handleRegister({
+      email,
+      username,
+      password,
+    });
+
+    navigate("/");
+  };
+
+  if (loading) {
+    return (
+      <main className="auth-page">
+        <h1>Loading...</h1>
+      </main>
+    );
   }
 
   return (
-    <main> 
-      <div className='form-container'>
-        <h1>Register</h1>
+    <main className="auth-page">
+      <div className="auth-shell">
 
-        <form onSubmit={handleSubmit}>
-
-          <div className='input-group'>
-            <label htmlFor='username'>Username</label>
-            <input onChange={(e)=>setUsername(e.target.value)}
-             type='text' id='username' name='username' placeholder='Enter username'/>
+        <aside className="auth-side">
+          <div className="auth-side__eyebrow">
+            HIGH-PERFORMANCE CAREER HUB
           </div>
 
-          <div className='input-group'>
-            <label htmlFor='email'>Email</label>
-            <input onChange={(e)=>setEmail(e.target.value)}
-             type='email' id='email' name='email' placeholder='Enter email address'/>
+          <h1 className="auth-side__title">
+            AI-JOB-HELPER
+          </h1>
+
+          <p className="auth-side__copy">
+            Upload your resume and target job description.
+            Our AI analyzes your skill gaps, generates tailored
+            technical and behavioral questions, and delivers an
+            optimized, high-performance resume PDF.
+          </p>
+        </aside>
+
+        <section className="auth-panel">
+
+          <div className="auth-panel__top">
+            <Link className="auth-top-link" to="/login">
+              Login
+            </Link>
+
+            <Link
+              className="auth-top-link active"
+              to="/register"
+            >
+              Register
+            </Link>
           </div>
 
-          <div className='input-group'>
-            <label htmlFor='password'>Password</label>
-            <input onChange={(e)=>setPassword(e.target.value)}
-             type='password' id='password' name='password' placeholder='Enter password'/>
+          <div className="auth-content">
+
+            <p className="auth-eyebrow">
+              Register Access
+            </p>
+
+            <p className="auth-subtitle">
+              Create your credentials to begin.
+            </p>
+
+            <div className="auth-switch-tabs">
+              <Link to="/login">
+                Login
+              </Link>
+
+              <Link
+                className="active"
+                to="/register"
+              >
+                Register
+              </Link>
+            </div>
+
+            <form
+              className="auth-form"
+              onSubmit={handleSubmit}
+            >
+              <div className="auth-field">
+                <label>USERNAME</label>
+
+                <input
+                  type="text"
+                  placeholder="Commander Handle"
+                  onChange={(e) =>
+                    setUsername(e.target.value)
+                  }
+                />
+              </div>
+
+              <div className="auth-field">
+                <label>EMAIL</label>
+
+                <input
+                  type="email"
+                  placeholder="name@career.ai"
+                  onChange={(e) =>
+                    setEmail(e.target.value)
+                  }
+                />
+              </div>
+
+              <div className="auth-field">
+                <label>PASSWORD</label>
+
+                <input
+                  type="password"
+                  placeholder="••••••••"
+                  onChange={(e) =>
+                    setPassword(e.target.value)
+                  }
+                />
+              </div>
+
+              <button
+                className="auth-submit-button"
+                type="submit"
+              >
+                Sign Up
+              </button>
+            </form>
+
+            <p className="auth-switch">
+              Already have an account?{" "}
+              <Link to="/login">
+                Login
+              </Link>
+            </p>
+
           </div>
 
-          <button className='button primary-button'>Register</button>
-        </form>
+        </section>
 
-        <p>Already have an account? <Link to={"/login"}>Login</Link></p>
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

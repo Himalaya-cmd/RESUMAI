@@ -1,53 +1,133 @@
-import "../auth.form.scss"
-import {Link ,useNavigate} from "react-router";
+import "../auth.form.scss";
+import { Link, useNavigate } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
 
 const Login = () => {
+  const { loading, handleLogin } = useAuth();
+  const navigate = useNavigate();
 
-  const {loading,handleLogin} = useAuth()
-  const navigate = useNavigate()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const[email,setEmail] = useState("")
-  const[password,setPassword] = useState("")
-
-  const handleSubmit = (e) =>{
+  const handleSubmit = (e) => {
     e.preventDefault();
-    handleLogin({email,password})
-    navigate("/");
-  }
 
-  if(loading){
-    return(<main><h1>Loading....</h1></main>)
+    handleLogin({
+      email,
+      password,
+    });
+
+    navigate("/");
+  };
+
+  if (loading) {
+    return (
+      <main className="auth-page">
+        <h1>Loading...</h1>
+      </main>
+    );
   }
 
   return (
-    <main> 
-      <div className='form-container'>
-        <h1>Login</h1>
+    <main className="auth-page">
+      <div className="auth-shell">
 
-        <form onSubmit={handleSubmit}>
-
-          <div className='input-group'>
-            <label htmlFor='email'>Email</label>
-            <input onChange={(e)=>setEmail(e.target.value)} 
-             type='email' id='email' name='email' placeholder='Enter email address'/>
+        <aside className="auth-side">
+          <div className="auth-side__eyebrow">
+            HIGH-PERFORMANCE CAREER HUB
           </div>
 
-          <div className='input-group'>
-            <label htmlFor='password'>Password</label>
-            <input onChange={(e)=>setPassword(e.target.value)}
-             type='password' id='password' name='password' placeholder='Enter password'/>
+          <h1 className="auth-side__title">
+            AI-JOB-HELPER
+          </h1>
+
+          <p className="auth-side__copy">
+            Upload your resume and target job description.
+            Our AI analyzes your skill gaps, generates tailored
+            technical and behavioral questions, and delivers an
+            optimized, high-performance resume PDF.
+          </p>
+        </aside>
+
+        <section className="auth-panel">
+
+          <div className="auth-panel__top">
+            <Link className="auth-top-link active" to="/login">
+              Login
+            </Link>
+
+            <Link className="auth-top-link" to="/register">
+              Register
+            </Link>
           </div>
 
-          <button className='button primary-button'>Login</button>
+          <div className="auth-content">
 
-        </form>
+            <p className="auth-subtitle">
+              Sign in to Begin.
+            </p>
 
-        <p>New User? <Link to={"/register"}>Sign Up</Link></p>
+            <div className="auth-switch-tabs">
+              <Link className="active" to="/login">
+                Login
+              </Link>
+
+              <Link to="/register">
+                Register
+              </Link>
+            </div>
+
+            <form
+              className="auth-form"
+              onSubmit={handleSubmit}
+            >
+              <div className="auth-field">
+                <label>EMAIL</label>
+
+                <input
+                  type="email"
+                  placeholder="name@career.ai"
+                  onChange={(e) =>
+                    setEmail(e.target.value)
+                  }
+                />
+              </div>
+
+              <div className="auth-field">
+                <label>PASSWORD</label>
+
+                <input
+                  type="password"
+                  placeholder="••••••••"
+                  onChange={(e) =>
+                    setPassword(e.target.value)
+                  }
+                />
+              </div>
+
+              <button
+                className="auth-submit-button"
+                type="submit"
+              >
+                Execute Access ⚡
+              </button>
+            </form>
+
+            <p className="auth-switch">
+              New user?{" "}
+              <Link to="/register">
+                Create account
+              </Link>
+            </p>
+
+          </div>
+
+        </section>
+
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
