@@ -110,7 +110,7 @@ const Login = () => {
                 className="auth-submit-button"
                 type="submit"
               >
-                Execute Access ⚡
+                Log In
               </button>
             </form>
 
