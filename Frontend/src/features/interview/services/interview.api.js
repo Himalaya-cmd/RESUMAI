@@ -1,7 +1,8 @@
 import axios from "axios";
 
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || window?.location?.origin || "http://localhost:3000").replace(/\/$/, "")
 const api = axios.create({
-    baseURL: "https://resumai-0nwe.onrender.com",
+    baseURL: API_BASE_URL,
     withCredentials: true,
 })
 

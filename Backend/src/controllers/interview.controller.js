@@ -1,7 +1,6 @@
-const { PDFParse } = require("pdf-parse")
-const {generateInterviewReport} = require("../services/ai.service")
+const pdfParse = require("pdf-parse")
+const {generateInterviewReport, generateResumePdf} = require("../services/ai.service")
 const interviewReportModel = require("../models/interviewReport.model")
-const {generateResumePdf} = require("../services/ai.service")
 
 /**
  * @description Controller to generate interview report on the basis of user self description,resume pdf and job description 
@@ -22,24 +21,18 @@ async function generateInterViewReportController(req,res){
             })
         }
 
-        const parser = new PDFParse({ data: req.file.buffer })
-        let resumeContent
-
-        try {
-            resumeContent = await parser.getText()
-        } finally {
-            await parser.destroy()
-        }
+        const resumeData = await pdfParse(req.file.buffer)
+        const resumeText = resumeData.text || ""
 
         const interViewReportByAi = await generateInterviewReport({
-            resume:resumeContent.text,
+            resume: resumeText,
             selfDescription,
             jobDescription
         })
 
         const interviewReport = await interviewReportModel.create({
             user : req.user.id,
-            resume: resumeContent.text,
+            resume: resumeText,
             selfDescription,
             jobDescription,
             ...interViewReportByAi
@@ -99,7 +92,7 @@ async function getAllInterviewReportsController(req,res){
 async function generateResumePdfController(req,res){
     const {interviewReportId} = req.params
 
-    const interviewReport = await interviewReportModel.findOne({_id: interviewReportId})
+    const interviewReport = await interviewReportModel.findOne({_id: interviewReportId, user: req.user.id})
 
     if(!interviewReport){
         return res.status(404).json({
