@@ -6,7 +6,7 @@ const cors = require("cors")
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
-    origin:"https://resumai-0nwe.onrender.com",
+    origin:"https://resumai-1-8oau.onrender.com",
     credentials: true
 }))
 
