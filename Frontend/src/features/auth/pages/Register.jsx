@@ -100,7 +100,7 @@ const Register = () => {
 
                 <input
                   type="text"
-                  placeholder="Commander Handle"
+                  placeholder="username"
                   onChange={(e) =>
                     setUsername(e.target.value)
                   }

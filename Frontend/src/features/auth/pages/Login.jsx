@@ -87,7 +87,7 @@ const Login = () => {
 
                 <input
                   type="email"
-                  placeholder="name@career.ai"
+                  placeholder="name@gmail.com"
                   onChange={(e) =>
                     setEmail(e.target.value)
                   }
