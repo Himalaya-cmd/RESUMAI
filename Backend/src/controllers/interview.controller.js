@@ -97,26 +97,32 @@ async function getAllInterviewReportsController(req,res){
  */
 
 async function generateResumePdfController(req,res){
-    const {interviewReportId} = req.params
+    try{
+        console.log("Controller hit");
 
-    const interviewReport = await interviewReportModel.findOne({_id: interviewReportId})
+        const {interviewReportId}=req.params;
+        console.log(interviewReportId);
 
-    if(!interviewReport){
-        return res.status(404).json({
-            message: "Interview report not found"
-        })
+        const interviewReport =
+            await interviewReportModel.findById(interviewReportId);
+
+        console.log(interviewReport);
+
+        const resumePdfData = await generateResumePdf({
+            resume: interviewReport.resume,
+            selfDescription: interviewReport.selfDescription,
+            jobDescription: interviewReport.jobDescription
+        });
+
+        res.setHeader("Content-Type","application/pdf");
+        res.send(resumePdfData);
+
+    }catch(err){
+        console.log(err);
+        res.status(500).json({
+            error: err.message
+        });
     }
-
-    const resumePdfData = await generateResumePdf({
-        resume: interviewReport.resume,
-        selfDescription: interviewReport.selfDescription,
-        jobDescription: interviewReport.jobDescription
-    })
-
-    
-    res.setHeader("Content-Type", "application/pdf")
-    res.setHeader("Content-Disposition", "attachment; filename=resume.pdf")
-    res.status(200).send(resumePdfData)
 }
 
 

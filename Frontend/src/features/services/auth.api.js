@@ -37,12 +37,8 @@ export async function login({email,password}) {
 }
 
 export async function getMe() {
-    try{
-        const response = await api.get("/get-me")
-        return response.data; 
-    }catch (err) {
-        console.log(err)
-    }
+    const response = await api.get("/get-me")
+    return response.data; 
 }
 
 export async function logout() {
