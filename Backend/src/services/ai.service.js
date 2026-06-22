@@ -2,6 +2,10 @@ const {GoogleGenAI, Type} = require("@google/genai")
 const chromium = require("@sparticuz/chromium");
 const puppeteer = require("puppeteer-core");
 
+console.log("CHROMIUM =", chromium);
+console.log("TYPE =", typeof chromium);
+console.log("EXECUTABLE PATH =", chromium.executablePath);
+
 const ai = new GoogleGenAI({
     apiKey: process.env.GoogleGenAI_API
 });
