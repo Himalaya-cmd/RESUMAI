@@ -1,10 +1,7 @@
 const {GoogleGenAI, Type} = require("@google/genai")
-const chromium = require("@sparticuz/chromium");
+const chromium = require("@sparticuz/chromium").default;
 const puppeteer = require("puppeteer-core");
 
-console.log("CHROMIUM =", chromium);
-console.log("TYPE =", typeof chromium);
-console.log("EXECUTABLE PATH =", chromium.executablePath);
 
 const ai = new GoogleGenAI({
     apiKey: process.env.GoogleGenAI_API
@@ -136,10 +133,10 @@ ${jobDescription}
 async function generateResumePdf({resume, selfDescription, jobDescription}){
 
     const browser = await puppeteer.launch({
-            args: chromium.args,
-            executablePath: await chromium.executablePath(),
-            headless: true
-        });
+        args: chromium.args,
+        executablePath: await chromium.executablePath(),
+        headless: true,
+    });
     const page = await browser.newPage()
     const resumePdfSchema = {
   type: "object",
