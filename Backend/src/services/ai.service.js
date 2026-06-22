@@ -1,5 +1,5 @@
 const {GoogleGenAI, Type} = require("@google/genai")
-const pupperteer = require("puppeteer")
+const puppeteer = require("puppeteer")
 
 const ai = new GoogleGenAI({
     apiKey: process.env.GoogleGenAI_API
