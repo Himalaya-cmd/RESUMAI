@@ -130,7 +130,10 @@ ${jobDescription}
 
 async function generateResumePdf({resume, selfDescription, jobDescription}){
 
-    const browser = await pupperteer.launch()
+    const browser = await puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
     const page = await browser.newPage()
     const resumePdfSchema = {
   type: "object",
